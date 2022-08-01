@@ -1,7 +1,6 @@
 package org.example;
 
-import org.example.enums.EuroBanknoteType;
-import org.example.enums.EuroCoinType;
+import org.example.enums.EuroMoneyType;
 import org.example.exceptions.UserException;
 import org.example.exceptions.VendingMachineException;
 
@@ -10,16 +9,12 @@ import java.util.EnumMap;
 public interface UserInterface {
 
 
-    void setEuroBanknotesWallet(EuroBanknoteType banknoteType, int numberOfBanknotes) throws VendingMachineException, UserException;
+    void setMoneyInventory(EuroMoneyType moneyType, int numberOfMoney) throws UserException;
+    EnumMap<EuroMoneyType, Integer> getMoneyForMachine();
+    EnumMap<EuroMoneyType, Integer> getMoneyInventory();
 
-    void setEuroCoinWallet(EuroCoinType coinType, int numberOfCoins) throws UserException;
+    void setMoneyInventoryForMachine(EuroMoneyType moneyType, int numberOfMoney)throws UserException;
+    void updateMoneyInventory(EnumMap<EuroMoneyType, Integer> changeFromMachine);
 
-    EnumMap<EuroBanknoteType, Integer> getBanknotesInventory();
-
-    EnumMap<EuroCoinType, Integer> getCoinsInventory();
-
-    void updateCoinsInventory(EnumMap<EuroCoinType, Integer> changeFromMachine);
-
-    void updateEuroBanknotesInventory(EnumMap<EuroBanknoteType, Integer> changeFromMachine);
 
 }

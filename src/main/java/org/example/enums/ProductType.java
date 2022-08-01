@@ -12,10 +12,10 @@ public enum ProductType {
     DORITOS(277,"B04"),
     M_AND_M(141,"B05"),
     MASK(500,"C01"),
-    KENT(1500,"C02"),
-    MAGNET(2500,"C03"),
+    KENT(1550,"C02"),
+    MAGNET(2550,"C03"),
     DUNHILL(7500,"C04"),
-    KEY_HOLDER(3500,"C05");
+    KEY_HOLDER(3200,"C05");
 
     private int price;
     private final String machineCode;
