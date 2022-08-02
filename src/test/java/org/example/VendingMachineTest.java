@@ -20,30 +20,26 @@ public class VendingMachineTest {
     ////////////////____________//////////////////////
 
 
-
-
     @Test
-    public void setMoneyInventoryForMachineTest() throws  UserException {
+    public void setMoneyInventoryForMachineTest() throws UserException {
         user.setMoneyInventoryForMachine(EuroMoneyType.FIFTY_EURO, 1);
         user.setMoneyInventoryForMachine(EuroMoneyType.FIFTY_EURO, 2);
 
         EnumMap<EuroMoneyType, Integer> moneyForMachine = user.getMoneyForMachine();
 
-        Assert.assertEquals(3,(int)moneyForMachine.get(EuroMoneyType.FIFTY_EURO));
+        Assert.assertEquals(3, (int) moneyForMachine.get(EuroMoneyType.FIFTY_EURO));
     }
+
     @Test
-    public void setNegativeMoneyForMachineTest(){
+    public void setNegativeMoneyForMachineTest() {
         Exception exception = Assert.assertThrows(UserException.class,
-                () -> user.setMoneyInventoryForMachine(EuroMoneyType.ONE_EURO,-5));
-        Assert.assertEquals(exception.getMessage(),"Negative number of money!");
+                () -> user.setMoneyInventoryForMachine(EuroMoneyType.ONE_EURO, -5));
+        Assert.assertEquals(exception.getMessage(), "Negative number of money!");
     }
 
 
     ////////////////////////SnacksMachine Test//////////////////////////////
     ///////////////////*************************//////////////////////////
-
-
-
 
 
     @Test
@@ -58,7 +54,7 @@ public class VendingMachineTest {
 
 
         moneyForMachine = user.getMoneyInventory();
-        Assert.assertEquals(5,(int)moneyForMachine.get(EuroMoneyType.ONE_CENT));
+        Assert.assertEquals(5, (int) moneyForMachine.get(EuroMoneyType.ONE_CENT));
 
     }
 
@@ -82,7 +78,6 @@ public class VendingMachineTest {
 
         userSnacksMachine.loadMoneyInMachine(user.getMoneyForMachine());
 
-        
 
         Exception exception = Assert.assertThrows(VendingMachineException.class,
                 () -> userSnacksMachine.buyOneProduct(ProductType.DORITOS));
@@ -128,7 +123,7 @@ public class VendingMachineTest {
         admin.setMoneyInventoryForMachine(EuroMoneyType.TWENTY_CENT, 1);
 
         adminUserSnacksMachine.loadMoneyInMachine(admin.getMoneyForMachine());
-        adminUserSnacksMachine.setProductInventory( 0,0,0,0,0);
+        adminUserSnacksMachine.setProductInventory(0, 0, 0, 0, 0);
 
         Exception exception = Assert.assertThrows(VendingMachineException.class,
                 () -> adminUserSnacksMachine.buyOneProduct(ProductType.LAYS));
@@ -136,6 +131,7 @@ public class VendingMachineTest {
         Assert.assertEquals(exception.getMessage(), "LAYS has 0 stock.");
 
     }
+
     @Test
     public void snacksMachineDoesNotHaveChangeTest() throws Exception {
 
@@ -143,9 +139,8 @@ public class VendingMachineTest {
         admin.setMoneyInventoryForMachine(EuroMoneyType.TWENTY_CENT, 1);
 
         adminUserSnacksMachine.loadMoneyInMachine(admin.getMoneyForMachine());
-        adminUserSnacksMachine.setMoneyInventory(0,0,0,0,
-                0,0,0,0);
-
+        adminUserSnacksMachine.setMoneyInventory(0, 0, 0, 0,
+                0, 0, 0, 0);
 
 
         Exception exception = Assert.assertThrows(VendingMachineException.class,
@@ -158,23 +153,19 @@ public class VendingMachineTest {
 
     @Test
     public void loadInvalidTypeOfMoneyInSnacksMachineTest() throws Exception {
-        user.setMoneyInventoryForMachine(EuroMoneyType.TEN_EURO,1);
+        user.setMoneyInventoryForMachine(EuroMoneyType.TEN_EURO, 1);
         Exception exception = Assert.assertThrows(RuntimeException.class,
                 () -> userSnacksMachine.loadMoneyInMachine(user.getMoneyForMachine()));
-        Assert.assertEquals(exception.getMessage(),"TEN_EURO money is not valid for this machine!");
+        Assert.assertEquals(exception.getMessage(), "TEN_EURO money is not valid for this machine!");
     }
-    
+
     //////////////////////JuicesMachine Test//////////////////////
     ///////////////@@@@@@@@@@@@@@@@@@@@@@@@@@@@@//////////////
 
 
+    JuicesVendingMachine userJuicesMachine = new JuicesVendingMachine(user, user.isAdmin());
+    JuicesVendingMachine adminUserJuicesMachine = new JuicesVendingMachine(admin, admin.isAdmin());
 
-
-
-
-
-    JuicesVendingMachine userJuicesMachine = new JuicesVendingMachine(user,user.isAdmin());
-    JuicesVendingMachine adminUserJuicesMachine = new JuicesVendingMachine(admin,admin.isAdmin());
     @Test
     public void cancelTransactionJuicesMachineTest() throws Exception {
         user.setMoneyInventoryForMachine(EuroMoneyType.TEN_CENT, 1);
@@ -187,7 +178,7 @@ public class VendingMachineTest {
 
 
         moneyForMachine = user.getMoneyInventory();
-        Assert.assertEquals(5,(int)moneyForMachine.get(EuroMoneyType.TEN_CENT));
+        Assert.assertEquals(5, (int) moneyForMachine.get(EuroMoneyType.TEN_CENT));
 
     }
 
@@ -210,7 +201,6 @@ public class VendingMachineTest {
         user.setMoneyInventoryForMachine(EuroMoneyType.TWENTY_CENT, 1);
 
         userJuicesMachine.loadMoneyInMachine(user.getMoneyForMachine());
-
 
 
         Exception exception = Assert.assertThrows(VendingMachineException.class,
@@ -257,7 +247,7 @@ public class VendingMachineTest {
         admin.setMoneyInventoryForMachine(EuroMoneyType.TWENTY_CENT, 1);
 
         adminUserJuicesMachine.loadMoneyInMachine(admin.getMoneyForMachine());
-        adminUserJuicesMachine.setProductInventory( 0,0,0,0,0);
+        adminUserJuicesMachine.setProductInventory(0, 0, 0, 0, 0);
 
         Exception exception = Assert.assertThrows(VendingMachineException.class,
                 () -> adminUserJuicesMachine.buyOneProduct(ProductType.WATER));
@@ -265,6 +255,7 @@ public class VendingMachineTest {
         Assert.assertEquals(exception.getMessage(), "WATER has 0 stock.");
 
     }
+
     @Test
     public void juicesMachineDoesNotHaveChangeTest() throws Exception {
 
@@ -272,9 +263,8 @@ public class VendingMachineTest {
         admin.setMoneyInventoryForMachine(EuroMoneyType.TWENTY_CENT, 1);
 
         adminUserJuicesMachine.loadMoneyInMachine(admin.getMoneyForMachine());
-        adminUserJuicesMachine.setMoneyInventory(0,0,0,0,
-                0,0,0,0);
-
+        adminUserJuicesMachine.setMoneyInventory(0, 0, 0, 0,
+                0, 0, 0, 0);
 
 
         Exception exception = Assert.assertThrows(VendingMachineException.class,
@@ -287,22 +277,20 @@ public class VendingMachineTest {
 
     @Test
     public void loadInvalidTypeOfMoneyInJuicesMachineTest() throws Exception {
-        user.setMoneyInventoryForMachine(EuroMoneyType.FIFTY_EURO,1);
+        user.setMoneyInventoryForMachine(EuroMoneyType.FIFTY_EURO, 1);
         Exception exception = Assert.assertThrows(RuntimeException.class,
                 () -> userJuicesMachine.loadMoneyInMachine(user.getMoneyForMachine()));
-        Assert.assertEquals(exception.getMessage(),"FIFTY_EURO money is not valid for this machine!");
+        Assert.assertEquals(exception.getMessage(), "FIFTY_EURO money is not valid for this machine!");
     }
 
-    
+
     /////////////////////////NonAlimentVendingMachine TEST
     //////////////////&&&&&&&&&&&&&&&&&&&&&&&&&&&&&//////////////////////////////////////
 
 
+    NonAlimentarVendingMachine userNonAlimentarMachine = new NonAlimentarVendingMachine(user, user.isAdmin());
+    NonAlimentarVendingMachine adminUserNonAlimentarMachine = new NonAlimentarVendingMachine(admin, admin.isAdmin());
 
-
-
-    NonAlimentarVendingMachine userNonAlimentarMachine = new NonAlimentarVendingMachine(user,user.isAdmin());
-    NonAlimentarVendingMachine adminUserNonAlimentarMachine = new NonAlimentarVendingMachine(admin,admin.isAdmin());
     @Test
     public void cancelTransactionNonAlimentarMachineTest() throws Exception {
         user.setMoneyInventoryForMachine(EuroMoneyType.FIFTY_EURO, 1);
@@ -315,7 +303,7 @@ public class VendingMachineTest {
 
 
         moneyForMachine = user.getMoneyInventory();
-        Assert.assertEquals(5,(int)moneyForMachine.get(EuroMoneyType.FIFTY_EURO));
+        Assert.assertEquals(5, (int) moneyForMachine.get(EuroMoneyType.FIFTY_EURO));
 
     }
 
@@ -337,7 +325,6 @@ public class VendingMachineTest {
         user.setMoneyInventoryForMachine(EuroMoneyType.TEN_EURO, 1);
 
         userNonAlimentarMachine.loadMoneyInMachine(user.getMoneyForMachine());
-
 
 
         Exception exception = Assert.assertThrows(VendingMachineException.class,
@@ -384,7 +371,7 @@ public class VendingMachineTest {
         admin.setMoneyInventoryForMachine(EuroMoneyType.FIFTY_EURO, 1);
 
         adminUserNonAlimentarMachine.loadMoneyInMachine(admin.getMoneyForMachine());
-        adminUserNonAlimentarMachine.setProductInventory( 0,0,0,0,0);
+        adminUserNonAlimentarMachine.setProductInventory(0, 0, 0, 0, 0);
 
         Exception exception = Assert.assertThrows(VendingMachineException.class,
                 () -> adminUserNonAlimentarMachine.buyOneProduct(ProductType.DUNHILL));
@@ -392,6 +379,7 @@ public class VendingMachineTest {
         Assert.assertEquals(exception.getMessage(), "DUNHILL has 0 stock.");
 
     }
+
     @Test
     public void nonAlimentarMachineDoesNotHaveChangeTest() throws Exception {
 
@@ -399,9 +387,8 @@ public class VendingMachineTest {
         admin.setMoneyInventoryForMachine(EuroMoneyType.TEN_EURO, 3);
 
         adminUserNonAlimentarMachine.loadMoneyInMachine(admin.getMoneyForMachine());
-        adminUserNonAlimentarMachine.setMoneyInventory(0,0,0,0,
-                0,0,0,0);
-
+        adminUserNonAlimentarMachine.setMoneyInventory(0, 0, 0, 0,
+                0, 0, 0, 0);
 
 
         Exception exception = Assert.assertThrows(VendingMachineException.class,
@@ -414,10 +401,10 @@ public class VendingMachineTest {
 
     @Test
     public void loadInvalidTypeOfMoneyInNonAlimentarMachineTest() throws Exception {
-        user.setMoneyInventoryForMachine(EuroMoneyType.TEN_CENT,1);
+        user.setMoneyInventoryForMachine(EuroMoneyType.TEN_CENT, 1);
         Exception exception = Assert.assertThrows(RuntimeException.class,
                 () -> userNonAlimentarMachine.loadMoneyInMachine(user.getMoneyForMachine()));
-        Assert.assertEquals(exception.getMessage(),"TEN_CENT money is not valid for this machine!");
+        Assert.assertEquals(exception.getMessage(), "TEN_CENT money is not valid for this machine!");
     }
 
 }
