@@ -1,0 +1,14 @@
+User Andrei has :
+	HUNDRED_EURO -> 5 stock.
+	FIFTY_EURO -> 5 stock.
+	TWENTY_EURO -> 5 stock.
+	TEN_EURO -> 5 stock.
+	FIVE_EURO -> 5 stock.
+	TWO_EURO -> 5 stock.
+	ONE_EURO -> 2 stock.
+	FIFTY_CENT -> 6 stock.
+	TWENTY_CENT -> 4 stock.
+	TEN_CENT -> 6 stock.
+	FIVE_CENT -> 4 stock.
+	TWO_CENT -> 5 stock.
+	ONE_CENT -> 5 stock.

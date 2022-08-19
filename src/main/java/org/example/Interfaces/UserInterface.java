@@ -1,14 +1,15 @@
-package org.example;
+package org.example.Interfaces;
 
 import org.example.enums.EuroMoneyType;
 import org.example.exceptions.UserException;
-import org.example.exceptions.VendingMachineException;
 
+import java.io.IOException;
 import java.util.EnumMap;
 
 public interface UserInterface {
-
-
+    boolean isAdmin();
+    void checkstatus() throws IOException;
+    String getName();
     void setMoneyInventory(EuroMoneyType moneyType, int numberOfMoney) throws UserException;
     EnumMap<EuroMoneyType, Integer> getMoneyForMachine();
     EnumMap<EuroMoneyType, Integer> getMoneyInventory();

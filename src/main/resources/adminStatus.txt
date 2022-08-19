@@ -1,0 +1,3 @@
+From class org.example.SnacksVendingMachine
+Admin takes : 
+	5 ->  ONE_EURO

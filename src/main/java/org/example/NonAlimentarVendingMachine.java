@@ -5,23 +5,33 @@ import org.example.enums.ProductType;
 import org.example.exceptions.VendingMachineException;
 
 import java.util.EnumMap;
+import java.util.TreeMap;
+import java.util.logging.Level;
 
 public class NonAlimentarVendingMachine extends VendingMachine {
-    public NonAlimentarVendingMachine(User user, boolean admin) {
-        this.user = user;
-        this.admin = admin;
 
-        productInventory = new EnumMap<>(ProductType.class);
-        productInventory.put(ProductType.MASK, 5);
-        productInventory.put(ProductType.MAGNET, 5);
-        productInventory.put(ProductType.KENT, 5);
-        productInventory.put(ProductType.KEY_HOLDER, 5);
-        productInventory.put(ProductType.DUNHILL, 5);
 
-        moneyInventory = new EnumMap<>(EuroMoneyType.class);
+    public NonAlimentarVendingMachine() {
+
+        productInventory = new TreeMap<>();
+
+        productInventory.put("A1", new MachineProduct(ProductType.MASK, PRODUCT_STOCK));
+        productInventory.put("A2", new MachineProduct(ProductType.KENT, PRODUCT_STOCK));
+        productInventory.put("A3", new MachineProduct(ProductType.MAGNET, PRODUCT_STOCK));
+
+        productInventory.put("B1", new MachineProduct(ProductType.GUM, PRODUCT_STOCK));
+        productInventory.put("B2", new MachineProduct(ProductType.KENT, PRODUCT_STOCK));
+        productInventory.put("B3", new MachineProduct(ProductType.MASK, PRODUCT_STOCK));
+
+        productInventory.put("C1", new MachineProduct(ProductType.KEY_HOLDER, PRODUCT_STOCK));
+        productInventory.put("C2", new MachineProduct(ProductType.DUNHILL, PRODUCT_STOCK));
+        productInventory.put("C3", new MachineProduct(ProductType.MASK, PRODUCT_STOCK));
+
+
+        machineMoneyInventory = new EnumMap<>(EuroMoneyType.class);
         for (EuroMoneyType moneyType : EuroMoneyType.values()) {
             if (!moneyTypeIsNotValid(moneyType)) {
-                moneyInventory.put(moneyType, 10);
+                machineMoneyInventory.put(moneyType, MONEY_STOCK);
             }
         }
     }
@@ -29,35 +39,26 @@ public class NonAlimentarVendingMachine extends VendingMachine {
     @Override
     public void setMoneyInventory(int hundredEuroAmount, int fiftyEuroAmount, int twentyEuroAmount, int tenEuroAmount, int fiveEuroAmount,
                                   int twoEuroCentAmount, int oneEuroCentAmount, int fiftyCentAmount) throws VendingMachineException {
-        if (!admin) {
+        if (!logged) {
+            logger.log(Level.SEVERE, "Please log in before setting money inventory!",
+                    new VendingMachineException("Log in first!"));
+            throw new VendingMachineException("Log in first!");
+        } else if (!user.isAdmin()) {
+            logger.log(Level.INFO, "Only admin allowed!");
             throw new VendingMachineException("Only admin allowed!");
         }
-        moneyInventory.put(EuroMoneyType.HUNDRED_EURO, hundredEuroAmount);
-        moneyInventory.put(EuroMoneyType.FIFTY_EURO, fiftyEuroAmount);
-        moneyInventory.put(EuroMoneyType.TWENTY_EURO, twentyEuroAmount);
-        moneyInventory.put(EuroMoneyType.TEN_EURO, tenEuroAmount);
-        moneyInventory.put(EuroMoneyType.FIVE_EURO, fiveEuroAmount);
-        moneyInventory.put(EuroMoneyType.ONE_EURO, oneEuroCentAmount);
-        moneyInventory.put(EuroMoneyType.TWO_EURO, twoEuroCentAmount);
-        moneyInventory.put(EuroMoneyType.FIFTY_CENT, fiftyCentAmount);
+        machineMoneyInventory.put(EuroMoneyType.HUNDRED_EURO, hundredEuroAmount);
+        machineMoneyInventory.put(EuroMoneyType.FIFTY_EURO, fiftyEuroAmount);
+        machineMoneyInventory.put(EuroMoneyType.TWENTY_EURO, twentyEuroAmount);
+        machineMoneyInventory.put(EuroMoneyType.TEN_EURO, tenEuroAmount);
+        machineMoneyInventory.put(EuroMoneyType.FIVE_EURO, fiveEuroAmount);
+        machineMoneyInventory.put(EuroMoneyType.ONE_EURO, oneEuroCentAmount);
+        machineMoneyInventory.put(EuroMoneyType.TWO_EURO, twoEuroCentAmount);
+        machineMoneyInventory.put(EuroMoneyType.FIFTY_CENT, fiftyCentAmount);
 
-    }
+        logger.log(Level.INFO, user.getName() + " is setting money inventory for " + getClass().getSimpleName());
 
-
-    @Override
-    public void setProductInventory(int stockMask, int stockKent, int stockMagnet, int stockDunhill, int stockKeyHolder) throws VendingMachineException {
-
-        if (!admin) {
-            throw new VendingMachineException("Only admin allowed!");
-        }
-        if (stockMask < 0 || stockKent < 0 || stockMagnet < 0 || stockDunhill < 0 || stockKeyHolder < 0) {
-            throw new VendingMachineException("Negative stock");
-        }
-        productInventory.put(ProductType.MASK, stockMask);
-        productInventory.put(ProductType.KENT, stockKent);
-        productInventory.put(ProductType.MAGNET, stockMagnet);
-        productInventory.put(ProductType.DUNHILL, stockDunhill);
-        productInventory.put(ProductType.KEY_HOLDER, stockKeyHolder);
+        logged = false;
     }
 
     @Override
@@ -75,4 +76,6 @@ public class NonAlimentarVendingMachine extends VendingMachine {
             default -> true;
         };
     }
+
+
 }

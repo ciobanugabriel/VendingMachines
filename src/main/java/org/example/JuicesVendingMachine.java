@@ -5,25 +5,32 @@ import org.example.enums.ProductType;
 import org.example.exceptions.VendingMachineException;
 
 import java.util.EnumMap;
+import java.util.TreeMap;
+import java.util.logging.Level;
 
 public class JuicesVendingMachine extends VendingMachine {
 
 
-    public JuicesVendingMachine(User user, boolean admin) {
-        this.user = user;
-        this.admin = admin;
+    public JuicesVendingMachine() {
 
-        productInventory = new EnumMap<>(ProductType.class);
-        productInventory.put(ProductType.COCA_COLA, 5);
-        productInventory.put(ProductType.FANTA, 5);
-        productInventory.put(ProductType.SPRITE, 5);
-        productInventory.put(ProductType.WATER, 5);
-        productInventory.put(ProductType.TONIC_WATER, 5);
+        productInventory = new TreeMap<>();
 
-        moneyInventory = new EnumMap<>(EuroMoneyType.class);
+        productInventory.put("A1", new MachineProduct(ProductType.COCA_COLA, PRODUCT_STOCK));
+        productInventory.put("A2", new MachineProduct(ProductType.FANTA, PRODUCT_STOCK));
+        productInventory.put("A3", new MachineProduct(ProductType.SPRITE, PRODUCT_STOCK));
+
+        productInventory.put("B1", new MachineProduct(ProductType.COCA_COLA, PRODUCT_STOCK));
+        productInventory.put("B2", new MachineProduct(ProductType.FANTA, PRODUCT_STOCK));
+        productInventory.put("B3", new MachineProduct(ProductType.TONIC_WATER, PRODUCT_STOCK));
+
+        productInventory.put("C1", new MachineProduct(ProductType.SPRITE, PRODUCT_STOCK));
+        productInventory.put("C2", new MachineProduct(ProductType.SPRITE, PRODUCT_STOCK));
+        productInventory.put("C3", new MachineProduct(ProductType.SPRITE, PRODUCT_STOCK));
+
+        machineMoneyInventory = new EnumMap<>(EuroMoneyType.class);
         for (EuroMoneyType moneyType : EuroMoneyType.values()) {
             if (!moneyTypeIsNotValid(moneyType)) {
-                moneyInventory.put(moneyType, 10);
+                machineMoneyInventory.put(moneyType, MONEY_STOCK);
             }
         }
     }
@@ -48,35 +55,29 @@ public class JuicesVendingMachine extends VendingMachine {
     @Override
     public void setMoneyInventory(int oneCentAmount, int twoCentAmount, int fiveCentAmount, int tenCentAmount,
                                   int twentyCentAmount, int fiftyCentAmount, int oneEuroCentAmount, int twoEuroCentAmount) throws VendingMachineException {
-        if (!admin) {
+        if (!logged) {
+            logger.log(Level.SEVERE, "Please log in before setting money inventory!",
+                    new VendingMachineException("Log in first!"));
+            throw new VendingMachineException("Log in first!");
+
+        } else if (!user.isAdmin()) {
+            logger.log(Level.INFO, "Only admin allowed!");
             throw new VendingMachineException("Only admin allowed!");
         }
-        moneyInventory.put(EuroMoneyType.ONE_CENT, oneCentAmount);
-        moneyInventory.put(EuroMoneyType.TWO_CENT, twoCentAmount);
-        moneyInventory.put(EuroMoneyType.FIVE_CENT, fiveCentAmount);
-        moneyInventory.put(EuroMoneyType.TEN_CENT, tenCentAmount);
-        moneyInventory.put(EuroMoneyType.TWENTY_CENT, twentyCentAmount);
-        moneyInventory.put(EuroMoneyType.FIFTY_CENT, fiftyCentAmount);
-        moneyInventory.put(EuroMoneyType.ONE_EURO, oneEuroCentAmount);
-        moneyInventory.put(EuroMoneyType.TWO_EURO, twoEuroCentAmount);
+        machineMoneyInventory.put(EuroMoneyType.ONE_CENT, oneCentAmount);
+        machineMoneyInventory.put(EuroMoneyType.TWO_CENT, twoCentAmount);
+        machineMoneyInventory.put(EuroMoneyType.FIVE_CENT, fiveCentAmount);
+        machineMoneyInventory.put(EuroMoneyType.TEN_CENT, tenCentAmount);
+        machineMoneyInventory.put(EuroMoneyType.TWENTY_CENT, twentyCentAmount);
+        machineMoneyInventory.put(EuroMoneyType.FIFTY_CENT, fiftyCentAmount);
+        machineMoneyInventory.put(EuroMoneyType.ONE_EURO, oneEuroCentAmount);
+        machineMoneyInventory.put(EuroMoneyType.TWO_EURO, twoEuroCentAmount);
+
+        logger.log(Level.INFO, user.getName() + " is setting money inventory for " + getClass().getSimpleName());
+
+        logged = false;
     }
 
-    @Override
-    public void setProductInventory(int stockCocaCola, int stockFanta, int stockSprite, int stockWater, int stockTonicWater) throws VendingMachineException {
-
-        if (!admin) {
-            throw new VendingMachineException("Only admin allowed!");
-        }
-        if (stockFanta < 0 || stockSprite < 0 || stockWater < 0 || stockCocaCola < 0 || stockTonicWater < 0) {
-            throw new VendingMachineException("Negative stock");
-        }
-        productInventory.put(ProductType.COCA_COLA, stockCocaCola);
-        productInventory.put(ProductType.FANTA, stockFanta);
-        productInventory.put(ProductType.SPRITE, stockSprite);
-        productInventory.put(ProductType.WATER, stockWater);
-        productInventory.put(ProductType.TONIC_WATER, stockTonicWater);
-
-    }
 }
 
 

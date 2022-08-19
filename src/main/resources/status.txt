@@ -1,0 +1,81 @@
+class org.example.SnacksVendingMachine STATUS : 
+
+	Product Status : 
+		A1 : LAYS : 80 Cents. ---> 1 stock.
+		A2 : PEANUTS : 60 Cents. ---> 2 stock.
+		A3 : SKITTLES : 55 Cents. ---> 2 stock.
+		B1 : DORITOS : 60 Cents. ---> 0 stock.
+		B2 : LAYS : 80 Cents. ---> 2 stock.
+		B3 : CHIO_CHIPS : 80 Cents. ---> 0 stock.
+		C1 : PEANUTS : 60 Cents. ---> 0 stock.
+		C2 : SKITTLES : 55 Cents. ---> 0 stock.
+		C3 : SKITTLES : 55 Cents. ---> 0 stock.
+
+
+	Money Status : 
+		TWO_EURO ---> 10 stock.
+		ONE_EURO ---> 13 stock.
+		FIFTY_CENT ---> 9 stock.
+		TWENTY_CENT ---> 9 stock.
+		TEN_CENT ---> 10 stock.
+		FIVE_CENT ---> 9 stock.
+		TWO_CENT ---> 10 stock.
+		ONE_CENT ---> 10 stock.
+
+Total sales amount : 2 Euro and 25 cents.
+
+
+class org.example.JuicesVendingMachine STATUS : 
+
+	Product Status : 
+		A1 : COCA_COLA : 130 Cents. ---> 1 stock.
+		A2 : FANTA : 120 Cents. ---> 1 stock.
+		A3 : SPRITE : 125 Cents. ---> 0 stock.
+		B1 : COCA_COLA : 130 Cents. ---> 0 stock.
+		B2 : FANTA : 120 Cents. ---> 0 stock.
+		B3 : TONIC_WATER : 167 Cents. ---> 0 stock.
+		C1 : SPRITE : 125 Cents. ---> 3 stock.
+		C2 : SPRITE : 125 Cents. ---> 0 stock.
+		C3 : SPRITE : 125 Cents. ---> 1 stock.
+
+
+	Money Status : 
+		TWO_EURO ---> 11 stock.
+		ONE_EURO ---> 10 stock.
+		FIFTY_CENT ---> 11 stock.
+		TWENTY_CENT ---> 10 stock.
+		TEN_CENT ---> 10 stock.
+		FIVE_CENT ---> 10 stock.
+		TWO_CENT ---> 10 stock.
+		ONE_CENT ---> 10 stock.
+
+Total sales amount : 2 Euro and 50 cents.
+
+
+class org.example.NonAlimentarVendingMachine STATUS : 
+
+	Product Status : 
+		A1 : MASK : 200 Cents. ---> 1 stock.
+		A2 : KENT : 300 Cents. ---> 0 stock.
+		A3 : MAGNET : 1500 Cents. ---> 0 stock.
+		B1 : GUM : 100 Cents. ---> 5 stock.
+		B2 : KENT : 300 Cents. ---> 0 stock.
+		B3 : MASK : 200 Cents. ---> 0 stock.
+		C1 : KEY_HOLDER : 3200 Cents. ---> 0 stock.
+		C2 : DUNHILL : 300 Cents. ---> 2 stock.
+		C3 : MASK : 200 Cents. ---> 0 stock.
+
+
+	Money Status : 
+		HUNDRED_EURO ---> 10 stock.
+		FIFTY_EURO ---> 10 stock.
+		TWENTY_EURO ---> 11 stock.
+		TEN_EURO ---> 10 stock.
+		FIVE_EURO ---> 10 stock.
+		TWO_EURO ---> 9 stock.
+		ONE_EURO ---> 9 stock.
+		FIFTY_CENT ---> 10 stock.
+
+Total sales amount : 17 Euro and 0 cents.
+
+
